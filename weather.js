@@ -16,9 +16,13 @@ function searchCity(){
     .then(res => res.json())
     .then(data => {
         console.log(data);
-        document.getElementById('city').innerText = data.name;
-        const temp = data.main.temp - 273;
-        document.getElementById('temperature').innerText = temp.toFixed(2);
+        document.getElementById('city').innerText = `${data.name}, ${data.sys.country}`;
+        const temp = (data.main.temp - 273.15).toFixed(2);
+        const lowestTemp = (data.main.temp_min - 273.15).toFixed(2);
+        const highestTemp = (data.main.temp_max - 273.15).toFixed(2);
+        document.getElementById('temperature').innerText = `${temp} °C`;
+        document.getElementById('lowest-highest').innerText = `${lowestTemp} °C (min) / ${highestTemp} °C (max)`;
+        document.getElementById('situation').innerText = data.weather[0].main;
     })
 }
 
